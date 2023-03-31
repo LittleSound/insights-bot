@@ -16,6 +16,7 @@
   "license": "ISC",
   "devDependencies": {
     "@antfu/eslint-config": "^0.38.2",
+    "@rollup/plugin-alias": "^4.0.3",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "esbuild": "^0.17.14",
     "eslint": "^8.37.0",
