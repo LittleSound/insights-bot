@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "es6",
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
@@ -14,6 +14,6 @@
       "~/*": ["packages/*"]
     }
   },
-  "include": ["packages/**/*"],
+  "include": ["packages/**/*", "env.d.ts"],
   "exclude": ["node_modules", "dist"]
 }
