@@ -8,7 +8,7 @@ export default defineConfig({
   input: 'packages/core/index.ts',
   output: {
     file: 'dist/index.js',
-    format: 'cjs',
+    format: 'esm',
   },
   plugins: [
     resolve(),
