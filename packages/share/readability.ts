@@ -14,6 +14,8 @@ export async function extractContentFromURL(urlString: string): Promise<WebArtic
     headers: {
       'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 Edg/111.0.1661.62',
     },
+  }).catch(() => {
+    throw new Error(`Failed to fetch ${urlString}`)
   })
   if (!resp.ok)
     throw new Error(`Failed to fetch ${urlString}`)
@@ -21,7 +23,7 @@ export async function extractContentFromURL(urlString: string): Promise<WebArtic
     throw new Error(`url fetched, but content-type not supported yet, content-type: ${resp.headers.get('content-type')}`)
 
   const html = await resp.text()
-  const dom = new JSDOM(html)
+  const dom = new JSDOM(html, { url: resp.url })
   const reader = new Readability(dom.window.document)
 
   const article = reader.parse()
