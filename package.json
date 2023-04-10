@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "rollup -c --watch --watch.onBundleEnd 'node dist/index.js'",
+    "dev": "rollup -c && node dist/index.cjs",
     "test": "echo \"Error: no test specified\" && exit 1",
     "typecheck": "tsc --noEmit",
     "build": "rollup -c",
@@ -17,6 +17,8 @@
   "devDependencies": {
     "@antfu/eslint-config": "^0.38.2",
     "@rollup/plugin-alias": "^4.0.3",
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@types/node": "^18.15.11",
     "esbuild": "^0.17.14",
