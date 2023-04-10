@@ -17,6 +17,9 @@ export default defineConfig({
     file: 'dist/index.cjs',
     format: 'cjs',
   },
+  external: [
+    'jsdom',
+  ],
   plugins: [
     useDefault(dotenv)(),
     resolve(),
