@@ -34,10 +34,13 @@ const verbose = false
 const callbackManager = verbose
   ? CallbackManager.fromHandlers({
     handleLLMStart: async (llm: { name: string }, prompts: string[]) => {
+      // eslint-disable-next-line no-console
       console.log(JSON.stringify(llm, null, 2))
+      // eslint-disable-next-line no-console
       console.log(JSON.stringify(prompts, null, 2))
     },
     handleLLMEnd: async (output: LLMResult) => {
+      // eslint-disable-next-line no-console
       console.log(JSON.stringify(output, null, 2))
     },
     handleLLMError: async (err: Error) => {
