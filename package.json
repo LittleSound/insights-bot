@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "rollup -c && node dist/index.cjs",
+    "dev": "rollup -c && node dist/index.js",
     "test": "vitest --no-threads",
     "typecheck": "tsc --noEmit",
     "build": "rollup -c",

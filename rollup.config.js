@@ -14,8 +14,8 @@ function useDefault(obj) {
 export default defineConfig({
   input: 'packages/core/index.ts',
   output: {
-    file: 'dist/index.cjs',
-    format: 'cjs',
+    dir: 'dist',
+    format: 'esm',
   },
   external: [
     'jsdom',
