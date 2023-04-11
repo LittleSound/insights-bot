@@ -1,6 +1,7 @@
 import {
   ChatPromptTemplate,
   HumanMessagePromptTemplate,
+  PromptTemplate,
   SystemMessagePromptTemplate,
 } from 'langchain/prompts'
 
@@ -21,3 +22,8 @@ export const summarizeWebsiteTemplate = ChatPromptTemplate.fromPromptMessages([
     + '文章正文：{content}',
   ),
 ])
+
+export const loadSummarizationTemplate = new PromptTemplate({
+  template: '写下以下文章片段的摘要，摘要的字数在 500 字以内：\n\n"{text}"\n\n摘要:',
+  inputVariables: ['text'],
+})

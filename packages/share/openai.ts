@@ -1,8 +1,10 @@
 import { ChatOpenAI } from 'langchain/chat_models'
 import { TokenTextSplitter } from 'langchain/text_splitter'
 import { OpenAI } from 'langchain/llms'
+import { CallbackManager } from 'langchain/callbacks'
+import type { LLMResult } from 'langchain/schema'
 import { loadSummarizationChain } from 'langchain/chains'
-import { summarizeWebsiteTemplate } from './promptTemplates/summarizeWebsite'
+import { loadSummarizationTemplate, summarizeWebsiteTemplate } from './promptTemplates/summarizeWebsite'
 
 export enum GPTModelName {
   GPT432K0314 = 'gpt-4-32k-0314',
@@ -25,8 +27,34 @@ export enum GPTModelName {
   GPT3Babbage = 'babbage',
 }
 
-const model = new OpenAI({ temperature: 0 })
-const chat = new ChatOpenAI({ temperature: 0, modelName: GPTModelName.GPT3Dot5Turbo }, { basePath: `${process.env.OPENAI_API_HOST}/v1` })
+// debug
+// TODO: use env
+const verbose = false
+
+const callbackManager = verbose
+  ? CallbackManager.fromHandlers({
+    handleLLMStart: async (llm: { name: string }, prompts: string[]) => {
+      console.log(JSON.stringify(llm, null, 2))
+      console.log(JSON.stringify(prompts, null, 2))
+    },
+    handleLLMEnd: async (output: LLMResult) => {
+      console.log(JSON.stringify(output, null, 2))
+    },
+    handleLLMError: async (err: Error) => {
+      console.error(err)
+      console.error('type:', typeof (err as any)?.response, (err as any)?.response?.data)
+    },
+  })
+  : undefined
+
+const model = new OpenAI({
+  temperature: 0,
+  modelName: GPTModelName.GPT3Dot5Turbo,
+  verbose,
+  callbackManager,
+  maxTokens: 600,
+})
+const chat = new ChatOpenAI({ temperature: 0, modelName: GPTModelName.GPT3Dot5Turbo, verbose, callbackManager }, { basePath: `${process.env.OPENAI_API_HOST}/v1` })
 
 const splitter = new TokenTextSplitter({
   encodingName: 'cl100k_base',
@@ -38,7 +66,13 @@ export async function summarizeWithQuestionsAsSimplifiedChinese(title: string, b
   const chunks = await splitter.createDocuments([content])
   let currentContent = content
   if (chunks.length > 1) {
-    const summaryChain = loadSummarizationChain(model)
+    const summaryChain = loadSummarizationChain(model,
+      {
+        prompt: loadSummarizationTemplate,
+        combinePrompt: loadSummarizationTemplate,
+        combineMapPrompt: loadSummarizationTemplate,
+      },
+    )
     const summaryContent = await summaryChain.call({
       input_documents: chunks.splice(0, 4),
     })
