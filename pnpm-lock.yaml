@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@antfu/eslint-config': ^0.38.2
+  '@dqbd/tiktoken': ^1.0.4
   '@mozilla/readability': ^0.4.4
   '@rollup/plugin-alias': ^4.0.3
   '@rollup/plugin-commonjs': ^24.0.1
@@ -22,9 +23,10 @@ specifiers:
   vitest: ^0.30.0
 
 dependencies:
+  '@dqbd/tiktoken': 1.0.4
   '@mozilla/readability': 0.4.4
   jsdom: 21.1.1
-  langchain: 0.0.51
+  langchain: 0.0.51_@dqbd+tiktoken@1.0.4
   telegraf: 4.12.2
 
 devDependencies:
@@ -171,6 +173,10 @@ packages:
       chalk: 2.4.2
       js-tokens: 4.0.0
     dev: true
+
+  /@dqbd/tiktoken/1.0.4:
+    resolution: {integrity: sha512-C0HrJj2RNlsB3wslfNHGNH8xN7QQMki+y4JkUor/GE+oIfPvH7yVep9l1/2powam8AAH6+gdv5MggA5gsszweg==}
+    dev: false
 
   /@esbuild/android-arm/0.17.14:
     resolution: {integrity: sha512-0CnlwnjDU8cks0yJLXfkaU/uoLyRf9VZJs4p1PskBr2AlAHeEsFEwJEo0of/Z3g+ilw5mpyDwThlxzNEIxOE4g==}
@@ -2469,7 +2475,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /langchain/0.0.51:
+  /langchain/0.0.51_@dqbd+tiktoken@1.0.4:
     resolution: {integrity: sha512-uKjH4NZjiuKXVFfRhHSNEiPpwFb/P34hVpkg6HSFCJ2iynrtLTRNRLLAHbkXb1e2gMZT0cFVrKZuwC59xL13+g==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -2533,6 +2539,7 @@ packages:
         optional: true
     dependencies:
       '@anthropic-ai/sdk': 0.4.3
+      '@dqbd/tiktoken': 1.0.4
       '@fortaine/fetch-event-source': 3.0.6
       browser-or-node: 2.1.1
       exponential-backoff: 3.1.1

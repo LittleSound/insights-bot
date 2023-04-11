@@ -19,6 +19,7 @@ export default defineConfig({
   },
   external: [
     'jsdom',
+    '@dqbd/tiktoken',
   ],
   plugins: [
     useDefault(dotenv)(),

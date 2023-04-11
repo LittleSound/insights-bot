@@ -32,6 +32,7 @@
     "vitest": "^0.30.0"
   },
   "dependencies": {
+    "@dqbd/tiktoken": "^1.0.4",
     "@mozilla/readability": "^0.4.4",
     "jsdom": "^21.1.1",
     "langchain": "^0.0.51",
