@@ -12,7 +12,8 @@
     "baseUrl": "./",
     "paths": {
       "~/*": ["packages/*"]
-    }
+    },
+    "sourceMap": true
   },
   "include": ["packages/**/*", "env.d.ts"],
   "exclude": ["node_modules", "dist"]

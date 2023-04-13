@@ -16,6 +16,7 @@ export default defineConfig({
   output: {
     dir: 'dist',
     format: 'esm',
+    sourcemap: true,
   },
   external: [
     'jsdom',
@@ -26,7 +27,9 @@ export default defineConfig({
     resolve(),
     commonjs(),
     json(),
-    esbuild(),
+    esbuild({
+      sourceMap: true,
+    }),
     alias({
       entries: {
         '~/core': './packages/core/index.ts',
