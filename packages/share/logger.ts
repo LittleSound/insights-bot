@@ -31,4 +31,6 @@ const _log = createLogger({
   ],
 })
 
-export const log = _log
+export function newLoggerForModule(moduleName: string) {
+  return _log.child({ module: moduleName })
+}

@@ -1,21 +1,42 @@
-import { extractContentFromURL, summarizeWithQuestionsAsSimplifiedChinese } from '~/share'
-import type { TgBot } from '~/share/types'
+import type { Bot } from 'grammy'
+import { extractContentFromURL, newLoggerForModule, summarizeWithQuestionsAsSimplifiedChinese } from '~/share'
 
-export function initCommand(bot: TgBot) {
+const log = newLoggerForModule('command/smr')
+
+export function initCommand(bot: Bot) {
   bot.command('smr', async (ctx) => {
-    const url = ctx.message.text.replace('/smr ', '').trim()
+    if (!ctx.message) return
+    if (!ctx.hasCommand('smr')) return
+
+    const url = ctx.message.text.replace('/smr', '').trim()
+    if (!url) {
+      await ctx.reply('没有找到链接，可以发送一个有效的链接吗？用法：/smr <链接>')
+      return
+    }
+
+    try {
+      // eslint-disable-next-line no-new
+      new URL(url)
+    }
+    catch (err) {
+      log.error(err)
+      await ctx.reply('你发来的链接无法被理解，可以重新发一个试试。用法：/smr <链接>')
+      return
+    }
+
     const loadingMessage = await ctx.reply('请稍等，量子速读中...')
     try {
       const summarization = await summarizeInputURL(url)
       await ctx.reply(summarization, { parse_mode: 'HTML' })
     }
     catch (err) {
-      console.error(err)
-      ctx.telegram.editMessageText(loadingMessage.chat.id, loadingMessage.message_id, undefined, '暂时不支持量子速读这样的内容呢，可以换个别的链接试试。')
+      log.error(err)
+      ctx.api.editMessageText(loadingMessage.chat.id, loadingMessage.message_id, '暂时不支持量子速读这样的内容呢，可以换个别的链接试试。')
     }
   })
 
   bot.hears(/$(\/smr)|(\/smr ([^"]+))/g, async (ctx) => {
+    if (!ctx.message || !ctx.message.text) return
     const url = ctx.message.text.replace('/smr ', '').trim()
     const summarization = await summarizeInputURL(url)
     await ctx.editMessageText(summarization, { parse_mode: 'HTML' })
