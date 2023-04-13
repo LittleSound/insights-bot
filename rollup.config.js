@@ -18,6 +18,9 @@ export default defineConfig({
     format: 'esm',
     sourcemap: true,
   },
+  watch: {
+    clearScreen: false,
+  },
   external: [
     'jsdom',
     '@dqbd/tiktoken',

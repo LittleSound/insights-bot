@@ -1,6 +1,6 @@
 import { Telegraf } from 'telegraf'
 import { message } from 'telegraf/filters'
-import { yellow } from 'colors/safe'
+import { green, yellow } from 'colors/safe'
 import { initCommand } from './command'
 import { formatFullNameFromFirstAndLastName, log, mapChatTypeToChineseText } from '~/share'
 import type { TelegramChatType } from '~/share'
@@ -9,9 +9,17 @@ import type { TelegramChatType } from '~/share'
 async function main() {
   const bot = new Telegraf(process.env.BOT_TOKEN!)
 
+  const logSelf = log.child({ module: 'main' })
+
   // Enable graceful stop
-  process.once('SIGINT', () => bot.stop('SIGINT'))
-  process.once('SIGTERM', () => bot.stop('SIGTERM'))
+  process.once('SIGINT', () => {
+    logSelf.info(yellow('Stop due to SIGINT'))
+    bot.stop('SIGINT')
+  })
+  process.once('SIGTERM', () => {
+    logSelf.info(yellow('Stop due to SIGTERM'))
+    bot.stop('SIGTERM')
+  })
 
   bot.start(ctx => ctx.reply('Welcome'))
   bot.help(ctx => ctx.reply('Send me a sticker'))
@@ -41,8 +49,9 @@ async function main() {
   initCommand(bot)
 
   bot.launch()
+  logSelf.info(green('Bot Launched'))
   bot.botInfo = await bot.telegram.getMe()
-  log.child({ module: 'main' }).info(`Authorized as bot @${bot.botInfo.username || 'Unknown Bot Username'}`)
+  logSelf.info(`Authorized as bot ${yellow(`@${bot.botInfo.username || 'Unknown Bot Username'}`)}`)
 }
 
 main()
