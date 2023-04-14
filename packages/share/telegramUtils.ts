@@ -1,11 +1,12 @@
+import type { Message } from '@grammyjs/types'
 import { containsCJKChar } from './utils'
 
 /***
  * 将姓名和名字拼接成一个字符串
  */
-export function formatFullNameFromFirstAndLastName(firstName: string, lastName?: string): string {
-  if (!lastName || lastName === '') return firstName
-  if (firstName === '') return lastName ?? ''
+export function formatFullNameFromFirstAndLastName(firstName?: string, lastName?: string): string {
+  if (!lastName) return firstName ?? ''
+  if (!firstName) return lastName ?? ''
   if (containsCJKChar(firstName) && !containsCJKChar(lastName)) return `${firstName} ${lastName}`
   if (!containsCJKChar(firstName) && containsCJKChar(lastName)) return `${lastName} ${firstName}`
   if (containsCJKChar(firstName) && containsCJKChar(lastName)) return `${lastName} ${firstName}`
@@ -33,4 +34,24 @@ export function mapChatTypeToChineseText(chatType: TelegramChatType): string {
     default:
       return '未知'
   }
+}
+
+export function extractTextFromMessage(message: Message): string {
+  if (message.text)
+    return message.text
+  if (message.caption)
+    return message.caption
+
+  return ''
+}
+
+export function formatFullNameAndUsername(fullName: string, username: string): string {
+  if (!username)
+    return fullName
+
+  if (fullName.length >= 10)
+    return `${username} (用户名：${username})`
+
+
+  return `${fullName} (用户名：${username})`
 }

@@ -1,7 +1,7 @@
 import { Bot } from 'grammy'
 import { green, yellow } from 'colors/safe'
 import { initCommand } from './command'
-import { useLogMessage } from './middlewares'
+import { useLogMessage, useRecordMessage } from './middlewares'
 import { newLoggerForModule } from '~/share'
 
 const log = newLoggerForModule('main')
@@ -20,6 +20,7 @@ async function main() {
   })
 
   bot.use(useLogMessage())
+  bot.use(useRecordMessage())
 
   initCommand(bot)
 
