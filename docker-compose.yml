@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      - POSTGRES_USER=<Username of administrator user to manage Postgres>
+      - POSTGRES_PASSWORD=<Password for administrator user>
+      - POSTGRES_DB=<Automatically created database name>
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  insights_bot:
+    image: LittleSound/insights-bot:latest
+    restart: always
+    environment:
+      - TELEGRAM_BOT_TOKEN=<Telegram Bot API Token>
+      - OPENAI_API_SECRET=<OpenAI API Secret Key>
+      # POSTGRES_USER: Same as the POSTGRES_USER value above or use your own
+      # POSTGRES_PASSWORD: Same as the POSTGRES_PASSWORD value above or use your own
+      # DB_HOST: keep it as 'db' or use your own
+      # DB_PORT: keep it as '5432' or use your own
+      # DB_NAME: Same as POSTGRES_DB above or use your own
+      # POSTGRES_SCHEMA: keep it as 'insights_bot' or use your own, or read https://www.postgresql.org/docs/current/ddl-schemas.html to learn more
+      - DATABASE_URL="postgres://<POSTGRES_USER>:<POSTGRES_PASSWORD>@<DB_HOST>:<DB_PORT>/<DB_NAME>?schema=<POSTGRES_SCHEMA>"
+      # - OPENAI_API_HOST=https://<Some Host> # uncomment this if you want to use your own OpenAI API host
+
+volumes:
+  db:
+    driver: local

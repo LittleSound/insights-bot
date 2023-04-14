@@ -3,7 +3,9 @@ lockfileVersion: 5.4
 specifiers:
   '@antfu/eslint-config': ^0.38.2
   '@dqbd/tiktoken': ^1.0.4
+  '@grammyjs/types': ^3.0.3
   '@mozilla/readability': ^0.4.4
+  '@prisma/client': ^4.12.0
   '@rollup/plugin-alias': ^4.0.3
   '@rollup/plugin-commonjs': ^24.0.1
   '@rollup/plugin-json': ^6.0.0
@@ -11,6 +13,7 @@ specifiers:
   '@types/jsdom': ^21.1.1
   '@types/node': ^18.15.11
   colors: ^1.4.0
+  dayjs: ^1.11.7
   esbuild: ^0.17.14
   eslint: ^8.37.0
   grammy: ^1.15.3
@@ -18,6 +21,7 @@ specifiers:
   langchain: ^0.0.51
   nodemon: ^2.0.22
   pnpm: ^8.1.0
+  prisma: ^4.12.0
   rollup: ^3.20.2
   rollup-plugin-dotenv: ^0.4.1
   rollup-plugin-esbuild: ^5.0.0
@@ -28,7 +32,9 @@ specifiers:
 dependencies:
   '@dqbd/tiktoken': 1.0.4
   '@mozilla/readability': 0.4.4
+  '@prisma/client': 4.12.0_prisma@4.12.0
   colors: 1.4.0
+  dayjs: 1.11.7
   grammy: 1.15.3
   jsdom: 21.1.1
   langchain: 0.0.51_@dqbd+tiktoken@1.0.4
@@ -36,6 +42,7 @@ dependencies:
 
 devDependencies:
   '@antfu/eslint-config': 0.38.2_vwh6htx42aidho2qgfca5u5rwm
+  '@grammyjs/types': 3.0.3
   '@rollup/plugin-alias': 4.0.3_rollup@3.20.2
   '@rollup/plugin-commonjs': 24.0.1_rollup@3.20.2
   '@rollup/plugin-json': 6.0.0_rollup@3.20.2
@@ -46,6 +53,7 @@ devDependencies:
   eslint: 8.37.0
   nodemon: 2.0.22
   pnpm: 8.1.0
+  prisma: 4.12.0
   rollup: 3.20.2
   rollup-plugin-dotenv: 0.4.1_rollup@3.20.2
   rollup-plugin-esbuild: 5.0.0_tlo7utifgfyp2w3qfidxdwcvfy
@@ -429,7 +437,6 @@ packages:
 
   /@grammyjs/types/3.0.3:
     resolution: {integrity: sha512-ca/7GGJVFaqETN0IkXPRBY/bLV/PwmiP8AOU7Lg0VJIELDMqPvHLM8xENtx3iVCUoEa8/SkWfvHt5wb8Kzz+Dg==}
-    dev: false
 
   /@humanwhocodes/config-array/0.11.8:
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}
@@ -479,6 +486,29 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
+    dev: true
+
+  /@prisma/client/4.12.0_prisma@4.12.0:
+    resolution: {integrity: sha512-j9/ighfWwux97J2dS15nqhl60tYoH8V0IuSsgZDb6bCFcQD3fXbXmxjYC8GHhIgOk3lB7Pq+8CwElz2MiDpsSg==}
+    engines: {node: '>=14.17'}
+    requiresBuild: true
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+    dependencies:
+      '@prisma/engines-version': 4.12.0-67.659ef412370fa3b41cd7bf6e94587c1dfb7f67e7
+      prisma: 4.12.0
+    dev: false
+
+  /@prisma/engines-version/4.12.0-67.659ef412370fa3b41cd7bf6e94587c1dfb7f67e7:
+    resolution: {integrity: sha512-JIHNj5jlXb9mcaJwakM0vpgRYJIAurxTUqM0iX0tfEQA5XLZ9ONkIckkhuAKdAzocZ+80GYg7QSsfpjg7OxbOA==}
+    dev: false
+
+  /@prisma/engines/4.12.0:
+    resolution: {integrity: sha512-0alKtnxhNB5hYU+ymESBlGI4b9XrGGSdv7Ud+8TE/fBNOEhIud0XQsAR+TrvUZgS4na5czubiMsODw0TUrgkIA==}
+    requiresBuild: true
     dev: true
 
   /@rollup/plugin-alias/4.0.3_rollup@3.20.2:
@@ -1230,6 +1260,10 @@ packages:
     dependencies:
       time-zone: 1.0.0
     dev: true
+
+  /dayjs/1.11.7:
+    resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==}
+    dev: false
 
   /debug/3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
@@ -3171,6 +3205,15 @@ packages:
       ansi-regex: 5.0.1
       ansi-styles: 5.2.0
       react-is: 17.0.2
+    dev: true
+
+  /prisma/4.12.0:
+    resolution: {integrity: sha512-xqVper4mbwl32BWzLpdznHAYvYDWQQWK2tBfXjdUD397XaveRyAP7SkBZ6kFlIg8kKayF4hvuaVtYwXd9BodAg==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@prisma/engines': 4.12.0
     dev: true
 
   /psl/1.9.0:

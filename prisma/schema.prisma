@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ChatHistory {
+  id                 String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  chatId             BigInt  @map("chat_id")
+  messageId          BigInt  @map("message_id")
+  userId             BigInt  @map("user_id")
+  username           String  @map("username") @default("")
+  displayName        String  @map("display_name") @default("")
+  text               String  @map("text") @default("")
+  repliedMessageId   BigInt  @map("replied_message_id") @default(0)
+  repliedUserId      BigInt  @map("replied_user_id") @default(0)
+  repliedDisplayName String  @map("replied_display_name") @default("")
+  repliedUsername    String  @map("replied_username") @default("")
+  repliedText        String  @map("replied_text") @default("")
+  sentAt             BigInt  @map("sent_at")
+  embedded           Boolean @map("embedded") @default(false)
+  CreatedAt          BigInt  @map("created_at") @default(dbgenerated("CEIL(EXTRACT(EPOCH FROM now()) * 1000)::bigint"))
+  UpdatedAt          BigInt  @map("updated_at") @default(dbgenerated("CEIL(EXTRACT(EPOCH FROM now()) * 1000)::bigint"))
+
+  @@map("chat_histories")
+}

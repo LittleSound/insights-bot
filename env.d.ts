@@ -6,6 +6,7 @@ interface ImportMetaEnv {
   BOT_TOKEN: string
   OPENAI_API_KEY: string
   OPENAI_API_HOST: string
+  DATABASE_URL: string
 }
 
 // interface ImportMeta {

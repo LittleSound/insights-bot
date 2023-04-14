@@ -5,3 +5,6 @@ dist
 *.local.*
 *.log
 .env
+
+docker-compose.dev.yml
+docker-compose.dev.yaml

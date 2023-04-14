@@ -24,6 +24,7 @@ export default defineConfig({
   external: [
     'jsdom',
     '@dqbd/tiktoken',
+    '@prisma/client',
   ],
   plugins: [
     useDefault(dotenv)(),
